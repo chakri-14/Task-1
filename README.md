@@ -100,5 +100,5 @@ To-Do-List-main/
 
 # Deployment
 
-To deploy the application, host the frontend on **Vercel/Netlify** and the backend on **Render/Heroku**.
+You can view the live preview here : https://task-1-mocha.vercel.app/
 
