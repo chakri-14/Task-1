@@ -100,5 +100,5 @@ To-Do-List-main/
 
 # Deployment
 
-You can view the live preview here : https://task-1-mocha.vercel.app/
+You can view the live preview here : https://task-1-chi-liart.vercel.app/
 
