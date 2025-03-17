@@ -1,14 +1,17 @@
 import React, { useState, useEffect } from "react";
 
+const API_BASE_URL = import.meta.env.VITE_BACKEND_URL;
+
 function Todo() {
   const [tasks, setTasks] = useState([]);
   const [newTask, setNewTask] = useState("");
   const [editingTaskId, setEditingTaskId] = useState(null);
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/tasks")
+    fetch(`${API_BASE_URL}/api/tasks`)
       .then((res) => res.json())
-      .then((data) => setTasks(data));
+      .then((data) => setTasks(data))
+      .catch((error) => console.error("Error fetching tasks:", error));
   }, []);
 
   function handleInput(event) {
@@ -21,8 +24,8 @@ function Todo() {
     const requestData = { name: newTask };
     const method = editingTaskId ? "PUT" : "POST";
     const url = editingTaskId
-      ? `http://localhost:5000/api/tasks/${editingTaskId}`
-      : "http://localhost:5000/api/tasks";
+      ? `${API_BASE_URL}/api/tasks/${editingTaskId}`
+      : `${API_BASE_URL}/api/tasks`;
 
     fetch(url, {
       method,
@@ -38,12 +41,14 @@ function Todo() {
           setTasks((prev) => [...prev, task]);
         }
         setNewTask("");
-      });
+      })
+      .catch((error) => console.error("Error adding/updating task:", error));
   }
 
   function deleteTask(id) {
-    fetch(`http://localhost:5000/api/tasks/${id}`, { method: "DELETE" })
-      .then(() => setTasks((prev) => prev.filter((t) => t._id !== id)));
+    fetch(`${API_BASE_URL}/api/tasks/${id}`, { method: "DELETE" })
+      .then(() => setTasks((prev) => prev.filter((t) => t._id !== id)))
+      .catch((error) => console.error("Error deleting task:", error));
   }
 
   function editTask(id, name) {
